@@ -1,0 +1,140 @@
+ .slider-007{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed ;
+    margin-top: 45vh;
+    top:0;
+    z-index: 100000;
+    right:0;
+    height: 50px;
+    width: 50px;
+    background-color: #272727;
+    cursor: pointer;
+    border:1px solid white;
+    border-right-style: none;
+    border-top-left-radius: 50px; 
+    border-bottom-left-radius: 50px;
+    
+    
+  }
+  .slider-active-007{
+    position: fixed ;
+    margin-top: 45vh;
+    top:0;
+    z-index: 100000;
+    right:400px;
+    height: 50px;
+    width: 50px;
+    background-color: #272727;
+    cursor: pointer;
+  
+  }
+
+  .sidebar-007{
+    position: fixed ;
+    z-index: 100000;
+    display: none;
+  }
+
+  .sidebar-active-007{
+    position: fixed ;
+    margin-top: 0;
+    top:0;
+    z-index: 100000;
+    right:0;
+    height: 100vh;
+    width: 400px;
+    background-color: #272727;
+
+  }
+
+
+  .sidebarBody-007{
+    /* overflow: scroll; */
+    height: 100%;
+    width: 100%;
+    color: black;
+    z-index: 100000;
+  }
+  .multiline-007{
+    font-size: 40px;
+    white-space: pre-wrap;
+  }
+
+  /* copy paste */
+
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 97vh;
+  }
+  
+  .messages-container {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .message-container {
+    display: flex;
+    align-items: flex-start;
+    margin: 10px;
+  }
+  
+  .message-bubble {
+    font-size: 15px;
+    background-color: #f8f9fa;
+    padding: 10px 16px;
+    border-radius: 20px;
+    max-width: 80%;
+    word-wrap: break-word;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.05);
+  }
+  
+  .sender-message-container {
+    justify-content: flex-end;
+  }
+  
+  .sender-message-bubble {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .message-input-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #272727;
+    
+  }
+  
+  #messageInput {
+    flex-grow: 1;
+    margin-right: 6px;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    height: 30px;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    padding: 10px 16px 10px 16px;
+  }
+  
+  #sendButton {
+    background-color: #007bff;
+    border-radius: 50px;
+    outline: none;
+    border: none;
+    padding: 14px 16px 14px 16px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #sendButton:hover{
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.05);
+  }
+  
+  #sendButton:active {
+    background-color: #3b9aff;
+  }
