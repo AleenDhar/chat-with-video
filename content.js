@@ -50,7 +50,7 @@ if (response) {
     
     displayMessage(message, true);
 
-    fetch("http://https://ghostsai.vercel.app/api/gemini", {
+    fetch("https://ghostsai.vercel.app/api/gemini", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
