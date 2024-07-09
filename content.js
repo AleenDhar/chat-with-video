@@ -43,14 +43,14 @@ if (response) {
   const messageInput = document.getElementById('messageInput');
   const sendButton = document.getElementById('sendButton');
   const form = document.getElementById('prospects_form')
-  
+
   form.addEventListener('submit', function(e) { 
     e.preventDefault()
     const message = messageInput.value;
     
     displayMessage(message, true);
 
-    fetch("http://localhost:3000/api/gemini", {
+    fetch("http://https://ghostsai.vercel.app/api/gemini", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
