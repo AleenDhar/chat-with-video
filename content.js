@@ -30,6 +30,10 @@ if (response) {
   //creating the chatbox
   sidebarBody.innerHTML=`
    <div class="chat-container">
+    <div class="header-chat007" id="header-chat007">
+    <h1 class="ghostsai-logo-sexy">GhostsAI</h1>
+    <div class="profile-pic-sexy"></div>
+    </div>
     <div class="messages-container" id="messages"></div>
     <form id="prospects_form" method="post">
     <div class="message-input-container">
@@ -50,7 +54,8 @@ if (response) {
     
     displayMessage(message, true);
 
-    fetch("https://ghostsai.vercel.app/api/gemini", {
+    fetch("https://ghostsai-extension.vercel.app/api/gemini", {
+    // fetch("http://localhost:3000/api/gemini", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
