@@ -1,7 +1,9 @@
 
 let transcript = ""
 chrome.runtime.sendMessage({ type: "youtubeOrNot" }, function (response) {
-if (response) {
+if (response.isYouTube) {
+  // const url = response.url
+  // console.log(url)
   console.log("1. is YT long video")
   const slider = document.createElement("div");
   slider.classList="slider-007"
@@ -48,28 +50,43 @@ if (response) {
   const sendButton = document.getElementById('sendButton');
   const form = document.getElementById('prospects_form')
 
-  form.addEventListener('submit', function(e) { 
+  async function geturl(){
+    await chrome.runtime.sendMessage({ type: "getUrl" }, function (response) {
+      console.log(response.url);
+      });
+    return response.url;
+  }
+
+  form.addEventListener('submit', async function(e) { 
     e.preventDefault()
     const message = messageInput.value;
     
     displayMessage(message, true);
-
-    fetch("https://ghostsai-extension.vercel.app/api/gemini", {
-    // fetch("http://localhost:3000/api/gemini", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ transcript, message}),
+    // const url=await geturl()
+    // console.log(typeof url)
+    await chrome.runtime.sendMessage({ type: "getUrl" }, function (response) {
+      console.log(response.url);
+     url = response.url
+ // fetch("https://ghostsai-extension.vercel.app/api/gemini", {
+  fetch("http://localhost:3000/api/gemini", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    // body: JSON.stringify({ transcript, message}),
+    body: JSON.stringify({url, message}),
+  })
+    .then((response) => response.json())
+    .then((data)=>{
+      const reply= data.generatedText
+      displayMessage(reply)
+      console.log(reply)
     })
-      .then((response) => response.json())
-      .then((data)=>{
-        const reply= data.generatedText
-        displayMessage(reply)
-        console.log(reply)
-      })
-    messageInput.value = '';
   });
+      messageInput.value = '';
+      
+    })
+
 
   function displayMessage(message, isSender = false) {
     const messageContainer = document.createElement('div');
@@ -92,62 +109,62 @@ if (response) {
   }
 
 
-  setTimeout(function () {
-          const showTranscriptButton = document.querySelector(
-            'button[aria-label="Show transcript"]'
-          );
+  // setTimeout(function () {
+  //         const showTranscriptButton = document.querySelector(
+  //           'button[aria-label="Show transcript"]'
+  //         );
         
-      if (showTranscriptButton) {
-        console.log("2. has Transcript")
-        showTranscriptButton.click();
-        const contentWrapper = document.querySelector(
-          'ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]'
-        );
-        if (contentWrapper) {
-          // contentWrapper.style.display = "none";
-          console.log("3. Has content wrapper")
-          // let transcript = ""
-          setTimeout(()=>{
-            console.log("4. started workin on transcript")
-            ;
-            const contentWrap = contentWrapper.querySelector("#content");
-            let transcriptElement1 = contentWrap.querySelector(
-              "ytd-transcript-renderer"
-            );
-            let transcriptElement2 = transcriptElement1.querySelector(
-              "#segments-container"
-            );
-            let transcriptElement3 = transcriptElement2.querySelectorAll(
-              "yt-formatted-string"
-            );
-            let transcriptElement4 = transcriptElement2.querySelectorAll(
-              ".segment-timestamp"
-            );
-            if (transcriptElement4) {
-              let i=0;
-              transcriptElement4.forEach((string) =>{
-                transcript+=string.innerHTML
-                transcript+=transcriptElement3[i].innerHTML
-                // console.log(transcript)
-                i++;
-              });
+  //     if (showTranscriptButton) {
+  //       console.log("2. has Transcript")
+  //       showTranscriptButton.click();
+  //       const contentWrapper = document.querySelector(
+  //         'ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]'
+  //       );
+  //       if (contentWrapper) {
+  //         // contentWrapper.style.display = "none";
+  //         console.log("3. Has content wrapper")
+  //         // let transcript = ""
+  //         setTimeout(()=>{
+  //           console.log("4. started workin on transcript")
+  //           ;
+  //           const contentWrap = contentWrapper.querySelector("#content");
+  //           let transcriptElement1 = contentWrap.querySelector(
+  //             "ytd-transcript-renderer"
+  //           );
+  //           let transcriptElement2 = transcriptElement1.querySelector(
+  //             "#segments-container"
+  //           );
+  //           let transcriptElement3 = transcriptElement2.querySelectorAll(
+  //             "yt-formatted-string"
+  //           );
+  //           let transcriptElement4 = transcriptElement2.querySelectorAll(
+  //             ".segment-timestamp"
+  //           );
+  //           if (transcriptElement4) {
+  //             let i=0;
+  //             transcriptElement4.forEach((string) =>{
+  //               transcript+=string.innerHTML
+  //               transcript+=transcriptElement3[i].innerHTML
+  //               // console.log(transcript)
+  //               i++;
+  //             });
               
-            }
-            // if (transcriptElement3) {
-            //   transcriptElement3.forEach((string) =>{
-            //     transcript+=string.innerHTML
+  //           }
+  //           // if (transcriptElement3) {
+  //           //   transcriptElement3.forEach((string) =>{
+  //           //     transcript+=string.innerHTML
                 
-            //     console.log(transcript)
-            //   });
+  //           //     console.log(transcript)
+  //           //   });
               
-            // }
+  //           // }
 
-          },10000)
+  //         },10000)
      
-        }
+  //       }
 
-      }
-    },3000)
+  //     }
+  //   },3000)
 
 
 
